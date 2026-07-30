@@ -1,0 +1,95 @@
+* { box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
+.loading-screen { display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 24px; }
+
+.gantt-container {
+  width: 100%;          /* تغییر به 100 درصد */
+  max-width: 100%;      /* حذف محدودیت 1200px */
+  margin: 0;            /* حذف فاصله از وسط */
+  background: #fff;
+  border-radius: 0;     /* حذف گردی گوشه‌ها برای فول‌اسکرین */
+  box-shadow: none;     /* حذف سایه */
+  padding: 20px;
+  user-select: none;
+}
+
+.gantt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
+.gantt-header h2 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 12px; }
+.saving-badge { font-size: 12px; background: #dfe6e9; color: #636e72; padding: 4px 8px; border-radius: 12px; animation: pulse 1s infinite; }
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+.add-btn { background: #0984e3; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; }
+.add-btn.secondary { background: #636e72; }
+.add-btn:hover { opacity: 0.9; }
+
+.gantt-scroll-area { overflow-x: auto; overflow-y: hidden; border: 1px solid #eee; border-radius: 8px; }
+.gantt-inner { display: flex; flex-direction: column; min-width: max-content; }
+
+.gantt-header-row { display: flex; border-bottom: 2px solid #dfe6e9; position: sticky; top: 0; z-index: 50; background: #f8f9fa; }
+.gantt-corner { width: 200px; min-width: 200px; padding: 16px; font-weight: 700; font-size: 12px; color: #636e72; border-right: 1px solid #dfe6e9; display: flex; align-items: center; position: sticky; left: 0; background: #f8f9fa; z-index: 60; }
+.gantt-dates-header { display: flex; }
+
+.month-group { border-right: 1px solid #dfe6e9; display: flex; flex-direction: column; }
+.month-name-box { padding: 8px; text-align: center; font-weight: 600; font-size: 13px; border-bottom: 1px solid #eee; display: flex; justify-content: center; align-items: center; gap: 8px; background: #f1f2f6; }
+.x-btn { background: transparent; border: none; color: #b2bec3; cursor: pointer; font-size: 12px; }
+.x-btn:hover { color: #d63031; }
+.days-row { display: flex; }
+.day-cell { width: 30px; text-align: center; font-size: 9px; color: #b2bec3; border-right: 1px solid #f1f2f6; padding: 2px 0; }
+
+.gantt-row { display: flex; border-bottom: 1px solid #eee; position: relative; }
+.gantt-sidebar-cell { width: 200px; min-width: 200px; padding: 16px; border-right: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; gap: 8px; position: sticky; left: 0; background: white; z-index: 40; }
+.add-task-mini { background: #dfe6e9; color: #2d3436; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; width: fit-content; }
+.add-task-mini:hover { background: #b2bec3; }
+
+.gantt-timeline-area { position: relative; height: 100%; }
+.day-grid-line { position: absolute; top: 0; bottom: 0; width: 1px; background: #f7f7f7; }
+
+.gantt-bar { position: absolute; height: 32px; border-radius: 6px; display: flex; align-items: center; padding: 0 8px; color: white; font-size: 12px; font-weight: 500; cursor: grab; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.gantt-bar:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 20; }
+.gantt-bar.dragging { cursor: grabbing; opacity: 0.9; z-index: 30; }
+.bar-label { pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+
+.resize-handle { position: absolute; top: 0; bottom: 0; width: 6px; cursor: ew-resize; z-index: 15; }
+.resize-handle.left { left: 0; border-radius: 6px 0 0 6px; }
+.resize-handle.right { right: 0; border-radius: 0 6px 6px 0; }
+
+.edit-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 100; }
+.edit-content { background: white; padding: 24px; border-radius: 12px; width: 450px; display: flex; flex-direction: column; gap: 12px; }
+.edit-content h3 { margin: 0 0 12px 0; }
+.edit-content label { font-size: 12px; color: #636e72; margin-bottom: -8px; }
+.edit-content input, .edit-content select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+.modal-actions { display: flex; justify-content: space-between; margin-top: 12px; }
+.save-btn { background: #0984e3; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.delete-btn { background: #d63031; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+
+/* استایل دستگیره تغییر ارتفاع ردیف */
+.row-resizer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  cursor: ns-resize; /* آیکون تغییر ارتفاع عمودی موس */
+  background: transparent;
+  z-index: 50;
+  transition: background 0.2s;
+}
+.row-resizer:hover {
+  background: #0984e3;
+}
+/* استایل فیلد نام ماه و نام پروژه */
+.month-name-input {
+  border: 1px solid transparent;
+  background: transparent;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  width: 70px;
+  outline: none;
+  color: #2d3436;
+  border-radius: 4px;
+  padding: 2px;
+}
+.month-name-input:focus {
+  border: 1px solid #0984e3;
+  background: #fff;
+}
