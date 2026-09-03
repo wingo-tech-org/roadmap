@@ -1,6 +1,6 @@
-# 🚀 DevPath Hub (Interactive Roadmap Tracker)
+# 🚀 RoadmapFlow (Interactive Roadmap Tracker)
 
-DevPath Hub is a modern, full-stack web application designed to create, visualize, and track interactive learning roadmaps and career paths.
+RoadmapFlow is a modern, full-stack web application designed to create, visualize, and track interactive learning roadmaps and career paths.
 
 ---
 
